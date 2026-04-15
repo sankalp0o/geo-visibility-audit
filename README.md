@@ -1,20 +1,22 @@
 # GEO Visibility Audit
 
-A free Claude Code skill that audits how visible your brand is in AI-powered search — **ChatGPT**, **Google AI Overviews**, and **Google AI Mode**.
+A Claude Code skill that checks how your brand shows up in ChatGPT, Google AI Overviews, and Google AI Mode.
 
-No monthly subscription. No consultant billing hours. 2 minutes to set up, ~15 minutes to run, and you get a client-grade report with competitor visibility, citation sources, and a prioritized action list.
+Set up in 2 minutes, run in ~15 minutes. Output is a markdown report you can read, share, or hand to a client.
 
 ---
 
 ## What you get
 
-A structured report covering:
+A single markdown report with:
 
-- **Visibility scores** per platform (ChatGPT / Google AI Overview / Google AI Mode / Google Search) across purchase-intent, brand, and niche product queries
-- **Competitor visibility table** — who AI engines actually recommend in your category (often not the list you have in your head)
-- **Citation sources** — which domains AI engines cite as trusted sources in your space (= outreach targets)
-- **Brand mention analysis** — whether AI describes your brand accurately, hedges, hallucinates, or ignores you
-- **Prioritized action list** — immediate / short-term / medium-term steps to improve AI visibility
+- Visibility scores per platform (ChatGPT / Google AI Overview / Google AI Mode / Google Search) across purchase-intent, brand, and niche product queries
+- A competitor table — who AI engines actually name in your category
+- A citation-source table — which domains AI engines cite in your space
+- Brand mention analysis — whether AI describes you accurately, hedges, hallucinates, or doesn't know you
+- A prioritized action list (immediate / short-term / medium-term)
+
+Raw data (Playwright snapshots, ChatGPT conversation JSON, brand context, locked prompt set) is kept alongside the report so you can re-run or diff over time.
 
 ---
 
@@ -24,7 +26,9 @@ You need all three of these before running:
 
 ### 1. Claude Code
 
-Install from [claude.com/code](https://claude.com/code). You need an active subscription.
+Install from [claude.com/code](https://claude.com/code).
+
+**Subscription tier**: The audit runs for ~15 minutes and burns through a lot of tokens on Playwright snapshots and ChatGPT response parsing. A **Max subscription** is strongly recommended — Pro can run out of quota mid-audit.
 
 Verify it's working:
 ```bash
@@ -40,17 +44,19 @@ Install:
 claude mcp add playwright npx @playwright/mcp@latest
 ```
 
-Confirm it's connected by running `claude mcp list` — you should see `playwright` listed as `connected`.
+Confirm it's connected by running `claude mcp list` — you should see `playwright` listed as `connected`. **You may need to restart your Claude Code session for the new MCP to take effect.**
 
 ### 3. A logged-in ChatGPT session
 
-ChatGPT queries use your own logged-in session so responses include live web search (not training-data-only answers). You'll save this session once and reuse it.
+ChatGPT queries use a logged-in session so responses include live web search (not training-data-only answers). You'll save this session once and reuse it.
+
+**Use a separate ChatGPT account** — not your main one. The audit fires 10 queries in quick succession, and ChatGPT sometimes throttles or soft-blocks accounts it sees heavy automation on (especially free accounts). Create a free account on a different email address and log into that for the audit.
 
 **One-time setup:**
 
-1. In any working directory (e.g. `~/geo-audits/`), start Claude Code: `claude`
+1. Start Claude Code: `claude`
 2. Ask Claude: *"Open chatgpt.com with Playwright so I can log in, then save the session to `.chatgpt-session.json` in this directory."*
-3. Log in manually in the Playwright browser window. Once you see your ChatGPT home page, tell Claude to save the session.
+3. Log in manually in the Playwright browser window. Once you see the ChatGPT home page, tell Claude to save the session.
 4. Claude will save a `.chatgpt-session.json` file in the current directory. Keep this file — the audit reuses it.
 
 The session lasts weeks. If it expires, repeat the step — the skill will tell you if re-login is needed.
@@ -161,9 +167,12 @@ The skill will pause and ask rather than guess on things like ambiguous brand po
 
 ## Want help running it?
 
-If you don't have a Claude Code subscription, or you'd rather someone run the audit for you and walk through the report live, DM me on LinkedIn: [linkedin.com/in/sankalp0o](https://www.linkedin.com/in/sankalp0o/).
+If you don't have Claude Code, or you'd rather someone run the audit for you and walk through the report live, reach out:
 
-If the report surfaces serious gaps and you want help closing them (content, entity work, outreach, listings), that's what [Geology](https://geology.dev) does.
+- Email: [sankalp@getgeology.com](mailto:sankalp@getgeology.com)
+- Web: [getgeology.com](https://getgeology.com)
+
+If the report surfaces serious gaps and you want help closing them (content, entity work, outreach, listings), that's what Geology does.
 
 ---
 
